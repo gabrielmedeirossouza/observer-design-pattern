@@ -67,21 +67,21 @@ function car() {
 
 const car1 = car();
 
-const { createObserver } = ObserverFactory<ObserverMap>();
+const { CreateObserver } = new ObserverFactory<ObserverMap>();
 
-car1.observable.Subscribe(createObserver("on-start", () => {
+car1.observable.Subscribe(CreateObserver("on-start", () => {
   console.log("Car started");
 }));
 
-car1.observable.Subscribe(createObserver("on-stop", () => {
+car1.observable.Subscribe(CreateObserver("on-stop", () => {
   console.log("Car stopped");
 }));
 
-car1.observable.Subscribe(createObserver("on-accelerate", (speed) => {
+car1.observable.Subscribe(CreateObserver("on-accelerate", (speed) => {
   console.log(`Car accelerated to ${speed} km/h`);
 }));
 
-car1.observable.Subscribe(createObserver("on-decelerate", (speed) => {
+car1.observable.Subscribe(CreateObserver("on-decelerate", (speed) => {
   console.log(`Car decelerated to ${speed} km/h`);
 }));
 
