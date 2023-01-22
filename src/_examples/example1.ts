@@ -1,5 +1,5 @@
 import { Observable } from '../entities/observable';
-import {ObserverFactory} from '../factories/observer-factory'
+import { ObserverFactory } from '../factories/observer-factory'
 
 type ObserverMap = {
   "on-start": () => void;
