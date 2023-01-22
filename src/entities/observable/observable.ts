@@ -1,13 +1,18 @@
 import { Observer } from '../observer';
+import type { Event, Callback } from '../observer';
 
 type ObserverMap = {
-  [key: string]: (...args: any[]) => void
+  [key: Event]: Callback
 };
-type EventOf<T> = keyof T & string;
-type CallbackOf<T> = T[keyof T];
+type EventOf<T> = keyof T & Event;
+type CallbackOf<T> = T[keyof T] & Callback;
 type ObserverOf<T extends ObserverMap> = Observer<EventOf<T>, CallbackOf<T>>
 
-export class Observable<T extends { [key: string]: (...args: any[]) => void }> {
+/**
+ * @description Observable entity that can be observed by observers.
+ * @param T The observer map that defines the events and callbacks. The key must be a string that starts with "on-" and the value must be a callback. Example: { "on-change": (value: number) => void; }
+ */
+export class Observable<T extends ObserverMap> {
   private _observers: ObserverOf<T>[] = [];
 
   public get Observers(): ObserverOf<T>[] {
@@ -28,7 +33,7 @@ export class Observable<T extends { [key: string]: (...args: any[]) => void }> {
     }
   }
 
-  public Notify<A extends keyof T & string>(event: A, ...args: Parameters<T[A]>): void {
+  public Notify<A extends EventOf<T>>(event: A, ...args: Parameters<T[A]>): void {
     this._observers.forEach(observer => {
       if (observer.event === event) {
         observer.callback(...args);
