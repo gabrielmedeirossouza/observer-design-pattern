@@ -10,6 +10,10 @@ type ObserverOf<T extends ObserverMap> = Observer<EventOf<T>, CallbackOf<T>>
 export class Observable<T extends { [key: string]: (...args: any[]) => void }> {
   private _observers: ObserverOf<T>[] = [];
 
+  public get Observers(): ObserverOf<T>[] {
+    return this._observers;
+  }
+
   public Subscribe(observer: ObserverOf<T>): ObserverOf<T> {
     this._observers.push(observer);
 
