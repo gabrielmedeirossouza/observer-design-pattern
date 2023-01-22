@@ -6,7 +6,7 @@ type ObserverMap = {
 }
 
 it("should create an observer", () => {
-  const observer = ObserverFactory<ObserverMap>().createObserver("on-test", () => {});
+  const observer = new ObserverFactory<ObserverMap>().CreateObserver("on-test", () => {});
 
   expect(observer).toBeInstanceOf(Observer);
   expect(observer.event).toBe("on-test");
