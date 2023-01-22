@@ -19,12 +19,19 @@ export class Observable<T extends ObserverMap> {
     return this._observers;
   }
 
+  /**
+   * @param observer The observer that will be subscribed to the observable.
+   * @returns The observer that was passed as a parameter. (This is useful for unsubscribe)
+   */
   public Subscribe(observer: ObserverOf<T>): ObserverOf<T> {
     this._observers.push(observer);
 
     return observer;
   }
 
+  /**
+   * @param observer The observer that will be unsubscribed from the observable.
+   */
   public Unsubscribe(observer: ObserverOf<T>): void {
     const index = this._observers.indexOf(observer);
 
@@ -33,6 +40,10 @@ export class Observable<T extends ObserverMap> {
     }
   }
 
+  /**
+   * @param event The event that will be triggered.
+   * @param args The arguments that will be passed to the callback.
+   */
   public Notify<A extends EventOf<T>>(event: A, ...args: Parameters<T[A]>): void {
     this._observers.forEach(observer => {
       if (observer.event === event) {

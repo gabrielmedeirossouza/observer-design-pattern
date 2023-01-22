@@ -9,6 +9,7 @@ type EventOf<T> = keyof T & Event;
 
 /**
  * @description Factory for Observer entity.
+ * @param K The observer map that defines the events and callbacks. The key must be a string that starts with "on-" and the value must be a callback. Example: { "on-change": (value: number) => void; }
  */
 export class ObserverFactory<K extends ObserverMap> {
 
